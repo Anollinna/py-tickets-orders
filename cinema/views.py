@@ -55,7 +55,7 @@ class MovieViewSet(viewsets.ModelViewSet):
             actor_ids = [int(pk) for pk in actors.split(",") if pk.isdigit()]
             queryset = queryset.filter(actors__id__in=actor_ids)
 
-        title = self.request.query_params.get("title", None)
+        title = self.request.query_params.get("title")
         if title:
             queryset = queryset.filter(title__icontains=title)
 
@@ -78,11 +78,11 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = MovieSession.objects.all()
 
-        date = self.request.query_params.get("date", None)
+        date = self.request.query_params.get("date")
         if date:
             queryset = queryset.filter(show_time__date=date)
 
-        movie_id = self.request.query_params.get("movie", None)
+        movie_id = self.request.query_params.get("movie")
         if movie_id:
             queryset = queryset.filter(movie_id=movie_id)
 
